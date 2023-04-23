@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
 
     <link
       rel="icon"
@@ -17,25 +16,86 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script defer src="assets/js/alpine.js"></script>
   </head>
-  <body>
-    <!-- Rating state start -->
+  <body
+    class="flex min-h-screen flex-col justify-center bg-very-dark-blue font-body text-base text-white"
+  >
+    <main
+      x-data="{
+      rates: [1,2,3,4,5],
+      currentRate: null,
+      submitted:false
+    }"
+      class="flex items-center justify-center p-6"
+    >
+      <div
+        class="min-w-[327px] max-w-sm rounded-xl bg-dark-blue px-6 py-7"
+        x-show="!submitted"
+      >
+        <div
+          class="mb-4 flex h-[40px] w-[40px] items-center justify-center rounded-full bg-medium-grey/20"
+        >
+          <img class="h-3" src="assets/images/icon-star.svg" alt="" />
+        </div>
 
-    How did we do? Please let us know how we did with your support request. All
-    feedback is appreciated to help us improve our offering! 1 2 3 4 5 Submit
+        <h1 class="mb-2 text-2xl font-bold">How did we do?</h1>
+        <p class="mb-6 text-[14px] text-light-grey">
+          Please let us know how we did with your support request. All feedback
+          is appreciated to help us improve our offering!
+        </p>
+        <form @submit.prevent="submitted = true">
+          <fieldset>
+            <div class="mb-6 grid grid-cols-5 gap-3">
+              <template x-for="rate in rates">
+                <label class="focus:bg-red justify-self-center">
+                  <input
+                    type="radio"
+                    name="score"
+                    :value="rate"
+                    class="peer sr-only"
+                    @click="currentRate = rate"
+                  />
+                  <span
+                    class="leading-0 flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full bg-medium-grey/20 text-light-grey peer-checked:bg-orange peer-checked:text-white"
+                    x-text="rate"
+                  ></span>
+                </label>
+              </template>
+            </div>
+          </fieldset>
+          <button
+            class="block w-full rounded-full bg-orange p-3 text-center font-bold uppercase tracking-wider"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div
+        class="min-w-[327px] max-w-sm rounded-xl bg-dark-blue px-6 py-10"
+        x-show="submitted"
+      >
+        <div class="mb-5 flex justify-center">
+          <img
+            class="h-[100px]"
+            src="assets/images/illustration-thank-you.svg"
+            alt=""
+          />
+        </div>
+        <div
+          class="mx-auto mb-7 w-fit rounded-full bg-medium-grey/20 px-3 py-1 text-center text-[14px] text-orange"
+        >
+          You selected <span x-text="currentRate"></span> out of 5
+        </div>
+        <h1 class="mb-3 text-center text-2xl font-bold">Thank you!</h1>
 
-    <!-- Rating state end -->
-
-    <!-- Thank you state start -->
-
-    You selected
-    <!-- Add rating here -->
-    out of 5 Thank you! We appreciate you taking the time to give a rating. If
-    you ever need more support, don’t hesitate to get in touch!
-
-    <!-- Thank you state end -->
+        <p class="text-center text-[14px] text-light-grey">
+          We appreciate you taking the time to give a rating. If you ever need
+          more support, don’t hesitate to get in touch!
+        </p>
+      </div>
+    </main>
 
     <footer
-      class="text-dark-500 mt-5 h-[20px] w-screen px-2 text-center text-sm md:fixed md:bottom-0 md:left-1/2 md:mt-0 md:hidden md:-translate-x-1/2"
+      class="text-dark-500 fixed bottom-0 w-screen px-2 text-center text-sm md:left-1/2 md:mt-0 md:hidden md:-translate-x-1/2"
     >
       Challenge by
       <a
