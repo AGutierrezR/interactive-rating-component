@@ -4,6 +4,12 @@ module.exports = {
   content: ['./*.html'],
   theme: {
     extend: {
+      height: {
+        13: '3.375rem',
+      },
+      width: {
+        13: '3.375rem',
+      },
       fontFamily: {
         body: ['Overpass', 'san-serif'],
       },
